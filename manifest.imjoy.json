@@ -2,7 +2,7 @@
   "name": "Monash-SpatialScope",
   "type": "web-worker",
   "tags": [],
-  "description": "Spatial transcriptomics viewer",
+  "description": "The coding space for the Monash-Centric Spatial Transcriptomics Platform - focusing on CosMx/Xenium + ImJoy",
   "ui": "iframe",
   "version": "0.1.0",
   "src": "main.js"
