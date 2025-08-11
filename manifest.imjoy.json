@@ -1,0 +1,9 @@
+{
+  "name": "Monash-SpatialScope",
+  "type": "web-worker",
+  "tags": [],
+  "description": "Spatial transcriptomics viewer",
+  "ui": "iframe",
+  "version": "0.1.0",
+  "src": "main.js"
+}
