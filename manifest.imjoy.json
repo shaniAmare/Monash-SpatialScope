@@ -5,5 +5,5 @@
   "description": "The coding space for the Monash-Centric Spatial Transcriptomics Platform - focusing on CosMx/Xenium + ImJoy",
   "ui": "iframe",
   "version": "0.1.0",
-  "src": "main.js"
+  "src": "frontend/spatial_plugin.imjoy.html"
 }
