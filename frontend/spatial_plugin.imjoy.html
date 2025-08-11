@@ -1,0 +1,48 @@
+<!-- name: Spatial Viewer Plugin -->
+<!-- type: imjoy-plugin -->
+<!-- icon: 🔬 -->
+<!-- description: Gene expression and metadata viewer for spatial transcriptomics -->
+<!-- version: 0.1.0 -->
+
+<script type="text/python">
+import imjoy
+
+async def setup():
+    api = await imjoy.get_api()
+
+    async def start():
+        import plotly.express as px
+        import pandas as pd
+        import requests
+
+        # Backend address
+        BACKEND = "http://localhost:8000"
+
+        # Fetch available genes
+        genes = requests.get(f"{BACKEND}/genes").json()["genes"]
+        gene = await api.inputBox("Enter gene name", value="CD3E")
+
+        if gene not in genes:
+            await api.alert("Gene not found!")
+            return
+
+        # Get cell data
+        res = requests.get(f"{BACKEND}/cells", params={"gene": gene})
+        data = pd.DataFrame(res.json())
+
+        fig = px.scatter(
+            data,
+            x="x",
+            y="y",
+            color="expression",
+            hover_data=["cell_id", "cell_type", "cluster", "niche"],
+            color_continuous_scale="Viridis",
+            title=f"Expression of {gene}"
+        )
+        fig.update_yaxes(autorange="reversed")
+
+        win = await api.createWindow(name=f"Spatial Plot: {gene}", type="plotly")
+        await win.set(fig)
+
+    await api.export({"start": start})
+</script>
